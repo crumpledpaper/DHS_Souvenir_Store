@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <h1>Orders</h1>
+  <ul class=orders>
+  {% for order in orders %}
+    {% if (order.email == session.logged_in) or (session.logged_in == 'admin') %}
+        <li><h2>{{ order.pid }}</h2>
+        {% if session.logged_in == 'admin' %}
+            Email: {{ order.email }} <br>
+        {% endif %}
+        Item No: {{ order.merchandise_id }} <br>
+        Name: {{ order.merchandise_name }} <br>
+        Quantity: {{ order.quantity }} <br>
+        Cost: {{ order.cost }} <br>
+        Date: {{ order.order_date }} <br>
+    {% endif %}
+  {% else %}
+    <li><em>No orders here so far</em>
+
+  {% endfor %}
+  </ul>
+  {% endif %}
+{% endblock %}

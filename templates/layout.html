@@ -1,0 +1,25 @@
+<!doctype html>
+<title>DHS Souvenir Store</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>DHS Souvenir Store</h1>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('register') }}">register</a> |
+    <a href="{{ url_for('login') }}">log in</a>
+  {% else %}
+    <span>Welcome {{ session.logged_in }} |</span>
+    {% if session.logged_in=='admin' %}
+    <a href="{{ url_for('add_merchandise') }}">Add Merchandise</a> |
+    <a href="{{ url_for('show_merchandise') }}">Delete Merchandise</a> |
+    {% endif %}
+    {% if session.logged_in!='admin' %}<a href="{{ url_for('add_order') }}">browse</a> |{% endif %}
+    <a href="{{ url_for('show_orders') }}">View Orders</a> |
+    <a href="{{ url_for('logout') }}">log out</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>

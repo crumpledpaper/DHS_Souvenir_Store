@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in=='admin' %}
+    <form action="{{ url_for('add_merchandise') }}" method=post class=add-order>
+      <dl>
+        <dt>Name:</dt>
+        <dd><input type=text size=30 name=name required></dd>
+        <dt>Price:</dt>
+        <dd><input type=number min=0 step=0.05 name=price required></dd>
+        <dt>Image:</dt>
+        <dd><input type="file" name="image"></dd>
+      </dl>
+            <dd><input type=submit value=Submit></dd>
+    </form>
+  {% endif %}
+{% endblock %}

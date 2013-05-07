@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if session.logged_in %}
+    <form action="{{ url_for('add_order') }}" method=post class=add-order>
+        <table border="1" id="table">
+			<tr>
+			<th>No</th>
+			<th>Item name</th>
+			<th>Unit price (S$)</th>
+			<th>Number Wanted</th>
+			</tr>
+            {% for item in merchandise %}
+                <tr>
+                    <td>{{ item.pid }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td><input type="number" min="0" name={{ item.pid }}></td>
+                </tr>
+            {% endfor %}
+		</table>
+        <br>
+        Order Date: <input type=date name=date required>
+        <input type=hidden value={{ session.logged_in }} name=email>
+        <dd><input type=submit value=Submit></dd>
+      </dl>
+    </form>
+{% endif %}
+{% endblock %}
